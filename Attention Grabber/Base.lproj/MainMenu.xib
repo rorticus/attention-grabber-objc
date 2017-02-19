@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11134"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -11,8 +14,11 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModuleProvider="">
+        <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
+                <outlet property="connectionLabel" destination="fjf-AT-Bmw" id="Oup-Jh-uyq"/>
+                <outlet property="helpLabel" destination="FE6-e2-9Ao" id="FN4-6z-f4W"/>
+                <outlet property="statusLabel" destination="iNG-T5-xcM" id="HOd-tE-8cd"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -679,14 +685,67 @@
             </items>
         </menu>
         <window title="Attention Grabber" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" unifiedTitleAndToolbar="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="480" height="360"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-            <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
+            <rect key="contentRect" x="335" y="390" width="480" height="221"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3008" height="1669"/>
+            <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ" customClass="EventDelegatingView">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="221"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNG-T5-xcM">
+                        <rect key="frame" x="18" y="146" width="444" height="55"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="55" id="ROc-Ez-eto"/>
+                        </constraints>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Ready!" id="9oP-7N-ozh">
+                            <font key="font" metaFont="systemThin" size="37"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fjf-AT-Bmw">
+                        <rect key="frame" x="18" y="20" width="444" height="55"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="55" id="CVX-SI-Aq9"/>
+                        </constraints>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="http://127.0.0.1/" id="wwc-oa-jLt">
+                            <font key="font" metaFont="systemLight" size="32"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FE6-e2-9Ao">
+                        <rect key="frame" x="18" y="83" width="444" height="55"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="55" id="P32-Sh-sWc"/>
+                        </constraints>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="On another computer, open up a web browser to:" id="X9v-UW-Ehe">
+                            <font key="font" metaFont="systemThin" size="20"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="fjf-AT-Bmw" secondAttribute="trailing" constant="20" id="2mz-5g-Rmt"/>
+                    <constraint firstAttribute="trailing" secondItem="iNG-T5-xcM" secondAttribute="trailing" constant="20" id="AJh-NC-6gh"/>
+                    <constraint firstAttribute="trailing" secondItem="FE6-e2-9Ao" secondAttribute="trailing" constant="20" id="KIh-35-Ly8"/>
+                    <constraint firstAttribute="trailing" secondItem="FE6-e2-9Ao" secondAttribute="trailing" constant="20" id="Qgn-Wc-a7o"/>
+                    <constraint firstItem="FE6-e2-9Ao" firstAttribute="top" secondItem="iNG-T5-xcM" secondAttribute="bottom" constant="8" id="UnW-7n-Bx3"/>
+                    <constraint firstItem="iNG-T5-xcM" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="Xhk-Y6-HQF"/>
+                    <constraint firstItem="FE6-e2-9Ao" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="dcP-ME-hDf"/>
+                    <constraint firstItem="fjf-AT-Bmw" firstAttribute="top" secondItem="FE6-e2-9Ao" secondAttribute="bottom" constant="8" id="dqR-kU-TUu"/>
+                    <constraint firstItem="iNG-T5-xcM" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" id="j3e-8W-HKL"/>
+                    <constraint firstItem="fjf-AT-Bmw" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="tNF-Gq-208"/>
+                    <constraint firstItem="fjf-AT-Bmw" firstAttribute="top" secondItem="FE6-e2-9Ao" secondAttribute="bottom" constant="8" id="uvd-cb-F8m"/>
+                    <constraint firstItem="FE6-e2-9Ao" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="zSD-4q-qPk"/>
+                </constraints>
+                <connections>
+                    <outlet property="delegate" destination="Voe-Tx-rLC" id="APa-dI-3EO"/>
+                </connections>
             </view>
+            <point key="canvasLocation" x="139" y="91.5"/>
         </window>
     </objects>
 </document>

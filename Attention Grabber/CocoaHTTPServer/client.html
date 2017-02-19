@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attention Grabber</title>
+    <style type="text/css">
+        body {
+            background-color: red;
+        }
+
+        body.connected {
+            background-color: black;
+        }
+
+        body.on {
+            background-color: white;
+        }
+    
+        .message {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            margin-top: -24px;
+            font-size: 48px;
+            color: white;
+            font-family: sans-serif;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="">
+    <div id="message" class="message">Disconnected</div>
+</body>
+<script>
+    function createConnectingSocket(url) {
+        // Create a new WebSocket.
+        var socket = new WebSocket(url);
+        socket.onopen = function () {
+            document.body.classList.add('connected');
+            document.getElementById('message').innerHTML = '';
+            socket.send('init')
+        };
+        socket.onclose = function () {
+            document.body.classList.remove('connected');
+            document.getElementById('message').innerHTML = 'Server Disconnected';
+        };
+        socket.onmessage = function (event) {
+            console.log(event);
+            if (event.data === 'on') {
+                document.body.classList.add('on');
+            } else if (event.data === 'off') {
+                document.body.classList.remove('on');
+            }
+        };
+
+        return socket;
+    }
+
+    var initialUrl = 'ws://' + document.location.hostname + ':' + document.location.port + '/ws';
+
+    if (document.location.hash) {
+        initialUrl = 'ws://' + document.location.hash.substring(1);
+    }
+
+    var socket = createConnectingSocket(initialUrl);
+
+    document.body.addEventListener('keydown', function (event) {
+        if (event.keyCode === 32) {
+            socket.send('turn-on');
+        }
+    });
+
+    document.body.addEventListener('keyup', function (event) {
+        if (event.keyCode === 32) {
+            socket.send('turn-off');
+        }
+    });
+</script>
+</html>
